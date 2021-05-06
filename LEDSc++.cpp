@@ -23,11 +23,12 @@ int main(int argc, char* argv[]){
 	   string option(argv[1]);
 	   std::fstream fs;
      	   cout << "Starting the LED flash program" << endl;
-	   cout << "The LED Path is: " << LED3_PATH << endl;
+	   //cout << "The LED Path is: " << LED3_PATH << endl;
 
 	   //comparation of arguments
 
 	   if(option=="on"){
+		   cout << "Led 3" <<option <<endl;
 		   removeTrigger();
 	 	   fs.open (LED3_PATH "/brightness", std::fstream::out);
 		   fs << "1";
@@ -35,12 +36,30 @@ int main(int argc, char* argv[]){
 	   }
 
 	   else if (option=="off"){
+		   cout << "Led 3" <<option <<endl;
 		   removeTrigger();
 	   	   fs.open (LED3_PATH "/brightness", std::fstream::out);
 		   fs << "0";
 		   fs.close();
 	   }
-	   return 0;
+	
+	   else if(option==flash"){
+		  cout << "Led 3" <<option <<endl;
+		  fs.open (LED3_PATH "/trigger", std::fstream::out);
+    		  fs << "timer";
+    		  fs.close();
+    		  fs.open (LED3_PATH "/delay_on", std::fstream::out);
+    		  fs << "50";
+    		  fs.close();
+    		  fs.open (LED3_PATH "/delay_off", std::fstream::out);
+    		  fs << "50";
+    		  fs.close();
+		}
+	  else{
+		  cout << "Invalid option" << endl;
+	  }
+	  cout << "Finished the program" << endl;	   
+	  return 0;
 }
 
 
